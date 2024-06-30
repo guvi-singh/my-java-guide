@@ -1,0 +1,154 @@
+Let's explore the differences between inheritance, aggregation, and composition with detailed scenarios and code examples. These concepts are key parts of object-oriented programming (OOP) and describe different relationships between classes.
+
+### Inheritance
+
+**Definition**: Inheritance is a relationship where a class (subclass) derives from another class (superclass), inheriting its properties and behaviors (methods). It represents an "is-a" relationship.
+
+**Scenario**: Consider a scenario with animals. We have a base class `Animal` and subclasses `Dog` and `Cat` that inherit from `Animal`.
+
+```java
+// Animal.java
+public class Animal {
+    public void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+
+// Dog.java
+public class Dog extends Animal {
+    public void bark() {
+        System.out.println("The dog barks.");
+    }
+}
+
+// Cat.java
+public class Cat extends Animal {
+    public void meow() {
+        System.out.println("The cat meows.");
+    }
+}
+
+// Main.java
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        Cat myCat = new Cat();
+        
+        myDog.eat(); // Inherited method
+        myDog.bark(); // Dog-specific method
+        
+        myCat.eat(); // Inherited method
+        myCat.meow(); // Cat-specific method
+    }
+}
+```
+
+### Aggregation
+
+**Definition**: Aggregation is a relationship where one class contains a reference to another class. It represents a "has-a" relationship and indicates that the contained class can exist independently of the container class.
+
+**Scenario**: Consider a scenario with a university and students. A `University` has `Student` objects, but `Student` can exist without `University`.
+
+```java
+// Student.java
+public class Student {
+    private String name;
+    
+    public Student(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+}
+
+// University.java
+import java.util.List;
+
+public class University {
+    private String name;
+    private List<Student> students;
+    
+    public University(String name, List<Student> students) {
+        this.name = name;
+        this.students = students;
+    }
+    
+    public void showStudents() {
+        System.out.println("University: " + name);
+        for (Student student : students) {
+            System.out.println("Student: " + student.getName());
+        }
+    }
+}
+
+// Main.java
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student("Alice");
+        Student s2 = new Student("Bob");
+        
+        University uni = new University("OpenAI University", Arrays.asList(s1, s2));
+        uni.showStudents();
+    }
+}
+```
+
+### Composition
+
+**Definition**: Composition is a relationship where one class contains an instance of another class, and the contained class cannot exist independently of the container class. It represents a "part-of" relationship.
+
+**Scenario**: Consider a scenario with a `Car` and its `Engine`. An `Engine` is part of a `Car` and cannot exist independently.
+
+```java
+// Engine.java
+public class Engine {
+    public void start() {
+        System.out.println("Engine starts.");
+    }
+}
+
+// Car.java
+public class Car {
+    private Engine engine;
+    
+    public Car() {
+        this.engine = new Engine();
+    }
+    
+    public void startCar() {
+        engine.start();
+        System.out.println("Car starts.");
+    }
+}
+
+// Main.java
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car();
+        myCar.startCar();
+    }
+}
+```
+
+### Summary
+
+1. **Inheritance**:
+   - Represents an "is-a" relationship.
+   - Subclass inherits properties and methods from the superclass.
+   - Example: `Dog` is an `Animal`.
+
+2. **Aggregation**:
+   - Represents a "has-a" relationship.
+   - One class contains a reference to another class, which can exist independently.
+   - Example: `University` has `Student` objects.
+
+3. **Composition**:
+   - Represents a "part-of" relationship.
+   - One class contains an instance of another class, which cannot exist independently.
+   - Example: `Car` has an `Engine`.
+
+By understanding these relationships, you can design your classes and their interactions more effectively, ensuring your code is modular, maintainable, and reflective of real-world relationships.
